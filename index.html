@@ -724,6 +724,37 @@ function getRuedaMessage(scores) {
 }
 
 function showResults() {
+
+
+async function enviarLead() {
+
+  try {
+
+    await fetch(
+      'https://script.google.com/macros/s/AKfycbz2fHZbYLKRhyKj_Cj8HDhaGK6IVVlFta8w6M89LzPRGzMs1rNUlDRnU4GGkb65j6fNWQ/exec',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre: userData.nombre,
+          negocio: userData.negocio,
+          email: userData.email,
+          scores: scores,
+          diagnostico: getDiagnosisText(scores),
+          rueda: getRuedaMessage(scores)
+        })
+      }
+    );
+
+  } catch(err) {
+    console.error('Error enviando lead', err);
+  }
+
+}
+
+
   showScreen('screen-results');
   const lectura = getLectura(scores);
 
